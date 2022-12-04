@@ -5,9 +5,11 @@ require('dotenv').config()
 
 const mongoose = require('mongoose');
 
-const url = `mongodb+srv://root:${process.env.MONGO_PASS}@cluster0.3sdzszi.mongodb.net/?retryWrites=true&w=majority`
+const main = async () => {
+  return await mongoose.connect(`mongodb+srv://root:${process.env.MONGO_PASS}@cluster0.3sdzszi.mongodb.net/?retryWrites=true&w=majority`)
+}
 
-mongoose.connect(url).catch(error => console.log({ error }));
+main().catch(error => console.log({ error }));
 
 app.use(cors({
   origin: (domain, next) => {
@@ -35,9 +37,6 @@ const exerciseSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 const Exercise = mongoose.model('Exercise', exerciseSchema);
-
-
-
 
 app.post("/api/users", (req, res) => {
 
