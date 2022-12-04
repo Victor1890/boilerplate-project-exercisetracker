@@ -9,7 +9,12 @@ const url = `mongodb+srv://root:${process.env.MONGO_PASS}@cluster0.3sdzszi.mongo
 
 mongoose.connect(url).catch(error => console.log({ error }));
 
-app.use(cors());
+app.use(cors({
+  origin: (domain, next) => {
+    return next(null, true)
+  },
+  optionsSuccessStatus: true
+}));
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
